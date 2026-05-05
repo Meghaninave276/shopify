@@ -1,0 +1,175 @@
+<style>
+.about-us-section {
+  padding: 60px 0;
+  background: #f7f5f2;
+}
+
+.about-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+/* LEFT CONTENT */
+.about-content {
+  flex: 0 0 45%;
+  max-width: 45%;
+  padding: 20px 40px;
+}
+
+.about-subtitle {
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.about-heading {
+  font-size: 42px;
+  font-weight: 500;
+  margin-bottom: 15px;
+  line-height: 1.2;
+}
+
+.about-highlight {
+  font-family: cursive;
+  color: #7a8b6f;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.about-text {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  max-width: 500px;
+}
+
+/* ICON ROW */
+.about-icons {
+  display: flex;
+  gap: 30px;
+  margin-top: 25px;
+}
+
+.icon-box {
+  text-align: center;
+  font-size: 12px;
+}
+
+.icon-box span {
+  font-size: 22px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* RIGHT IMAGE */
+.about-image {
+  flex: 0 0 55%;
+  max-width: 55%;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .about-wrapper {
+    flex-direction: column;
+  }
+
+  .about-content,
+  .about-image {
+    max-width: 100%;
+    flex: 100%;
+    padding: 0;
+  }
+
+  .about-heading {
+    font-size: 28px;
+  }
+
+  .about-icons {
+    justify-content: space-between;
+  }
+}
+</style>
+
+<section class="about-us-section">
+  <div class="page-width about-wrapper">
+    
+    <!-- LEFT CONTENT -->
+    <div class="about-content">
+      
+      <p class="about-subtitle" style="font-size:35px; font-weight:bold;">ABOUT US</p>
+      
+      <h2 class="about-heading">
+        We’re more than an online store.
+      </h2>
+
+      <p class="about-highlight">
+        We’re here for you ♡
+      </p>
+
+      <p class="about-text">
+        Our journey started with a simple idea – to bring high-quality products to your everyday life at honest prices.
+        Today, we’re proud to serve thousands of happy customers and be a part of their journey.
+      </p>
+
+      <p class="about-text">
+        We believe in quality, trust, and creating experiences you’ll love.
+      </p>
+
+      
+      <div class="about-icons">
+        <div class="icon-box">
+          <span>⭐</span>
+          <p>QUALITY YOU CAN TRUST</p>
+        </div>
+
+        <div class="icon-box">
+          <span>📦</span>
+          <p>CAREFULLY PACKED WITH LOVE</p>
+        </div>
+
+        <div class="icon-box">
+          <span>🎧</span>
+          <p>CUSTOMER FIRST ALWAYS</p>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="about-image">
+      <img 
+        src="{{ section.settings.image | image_url: width: 1000 }}" 
+        alt="About us image"
+        loading="lazy"
+      >
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Us Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Right Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Us"
+    }
+  ]
+}
+{% endschema %}
