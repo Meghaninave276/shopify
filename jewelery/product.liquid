@@ -1,0 +1,1188 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web/src/regular/style.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web/src/fill/style.css" />
+
+<style>
+  .shopdev .jewelry-section {
+    background-color: {{ section.settings.bg_color }};
+    font-family: inherit;
+  }
+
+  .shopdev .jewelry-heading-highlight {
+    color: {{ section.settings.sage_green }};
+  }
+
+  .shopdev .jewelry-filter-sidebar {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid {{ section.settings.beige_color }};
+  }
+
+  .shopdev .jewelry-filter-title {
+    color: {{ section.settings.deep_green }};
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid {{ section.settings.beige_color }};
+  }
+
+  .shopdev .jewelry-filter-checkbox {
+    accent-color: {{ section.settings.deep_green }};
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+
+  .shopdev .jewelry-filter-label {
+    color: #444;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .shopdev .jewelry-filter-count {
+    background: {{ section.settings.beige_color }};
+    color: {{ section.settings.deep_green }};
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+
+  .shopdev .jewelry-price-input {
+    background: {{ section.settings.beige_color }};
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: {{ section.settings.deep_green }};
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .shopdev .jewelry-price-input:focus {
+    border-color: {{ section.settings.sage_green }};
+  }
+
+  .shopdev .jewelry-range-track {
+    width: 100%;
+    height: 4px;
+    background: {{ section.settings.beige_color }};
+    border-radius: 2px;
+    position: relative;
+    margin: 16px 0;
+  }
+
+  .shopdev .jewelry-range-fill {
+    position: absolute;
+    height: 100%;
+    background: {{ section.settings.sage_green }};
+    border-radius: 2px;
+    left: 15%;
+    right: 30%;
+  }
+
+  .shopdev .jewelry-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border: 2px solid {{ section.settings.sage_green }};
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+
+  .shopdev .jewelry-range-thumb-left {
+    left: 15%;
+    margin-left: -8px;
+  }
+
+  .shopdev .jewelry-range-thumb-right {
+    right: 30%;
+    margin-right: -8px;
+  }
+
+  .shopdev .jewelry-color-swatch {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .shopdev .jewelry-color-swatch:hover,
+  .shopdev .jewelry-color-swatch.active {
+    border-color: {{ section.settings.deep_green }};
+    transform: scale(1.1);
+  }
+
+  .shopdev .jewelry-apply-btn {
+    background: {{ section.settings.deep_green }};
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: opacity 0.3s;
+    letter-spacing: 0.5px;
+  }
+
+  .shopdev .jewelry-apply-btn:hover {
+    opacity: 0.9;
+  }
+
+  .shopdev .jewelry-sort-select {
+    background: #fff;
+    border: 1px solid {{ section.settings.beige_color }};
+    border-radius: 8px;
+    padding: 8px 32px 8px 12px;
+    font-size: 13px;
+    color: {{ section.settings.deep_green }};
+    cursor: pointer;
+    outline: none;
+    appearance: auto;
+  }
+
+  .shopdev .jewelry-view-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid {{ section.settings.beige_color }};
+    border-radius: 8px;
+    cursor: pointer;
+    color: {{ section.settings.deep_green }};
+    transition: background 0.2s, color 0.2s;
+    background: #fff;
+  }
+
+  .shopdev .jewelry-view-icon.active,
+  .shopdev .jewelry-view-icon:hover {
+    background: {{ section.settings.deep_green }};
+    color: #fff;
+    border-color: {{ section.settings.deep_green }};
+  }
+
+  /* Product Card Styles */
+  .shopdev .jewelry-product-card {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    border: 1px solid {{ section.settings.beige_color }};
+  }
+
+  .shopdev .jewelry-product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(1, 58, 45, 0.1);
+  }
+
+  .shopdev .jewelry-product-image-wrap {
+    position: relative;
+    overflow: hidden;
+    background: {{ section.settings.beige_color }};
+    aspect-ratio: 1 / 1;
+  }
+
+  .shopdev .jewelry-product-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .shopdev .jewelry-product-card:hover .jewelry-product-image-wrap img {
+    transform: scale(1.08);
+  }
+
+  .shopdev .jewelry-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    z-index: 2;
+    letter-spacing: 0.3px;
+  }
+
+  .shopdev .jewelry-badge-discount {
+    background: {{ section.settings.deep_green }};
+    color: #fff;
+  }
+
+  .shopdev .jewelry-badge-new {
+    background: {{ section.settings.sage_green }};
+    color: #fff;
+  }
+
+  .shopdev .jewelry-wishlist-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(4px);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: background 0.2s, transform 0.2s;
+    color: {{ section.settings.deep_green }};
+    font-size: 18px;
+  }
+
+  .shopdev .jewelry-wishlist-btn:hover {
+    background: #fff;
+    transform: scale(1.1);
+  }
+
+  .shopdev .jewelry-wishlist-btn .ph-fill.ph-heart {
+    color: #e74c3c;
+  }
+
+  .shopdev .jewelry-wishlist-btn .heart-outline {
+    display: block;
+  }
+
+  .shopdev .jewelry-wishlist-btn .heart-filled {
+    display: none;
+  }
+
+  .shopdev .jewelry-wishlist-btn.active .heart-outline {
+    display: none;
+  }
+
+  .shopdev .jewelry-wishlist-btn.active .heart-filled {
+    display: block;
+  }
+
+  .shopdev .jewelry-add-cart-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: {{ section.settings.sage_green }};
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.35s ease, transform 0.35s ease, background 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .shopdev .jewelry-product-card:hover .jewelry-add-cart-btn {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .shopdev .jewelry-add-cart-btn:hover {
+    background: {{ section.settings.deep_green }};
+  }
+
+  .shopdev .jewelry-product-info {
+    padding: 16px;
+  }
+
+  .shopdev .jewelry-product-type {
+    color: {{ section.settings.sage_green }};
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 4px;
+  }
+
+  .shopdev .jewelry-product-title {
+    color: {{ section.settings.deep_green }};
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .shopdev .jewelry-product-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .shopdev .jewelry-product-title a:hover {
+    text-decoration: underline;
+  }
+
+  .shopdev .jewelry-stars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: 8px;
+  }
+
+  .shopdev .jewelry-stars i {
+    font-size: 14px;
+    color: #f5a623;
+  }
+
+  .shopdev .jewelry-stars .star-empty {
+    color: #d4d4d4;
+  }
+
+  .shopdev .jewelry-review-count {
+    font-size: 12px;
+    color: #999;
+    margin-left: 6px;
+  }
+
+  .shopdev .jewelry-price-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .shopdev .jewelry-price-sale {
+    color: {{ section.settings.deep_green }};
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  .shopdev .jewelry-price-compare {
+    color: #aaa;
+    font-size: 14px;
+    text-decoration: line-through;
+  }
+
+  /* Star rating filter */
+  .shopdev .jewelry-star-filter {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+
+  .shopdev .jewelry-star-filter i {
+    font-size: 14px;
+    color: #f5a623;
+  }
+
+  .shopdev .jewelry-star-filter .star-empty {
+    color: #d4d4d4;
+  }
+
+  .shopdev .jewelry-star-filter-count {
+    font-size: 12px;
+    color: #999;
+    margin-left: 4px;
+  }
+
+  /* View All link */
+  .shopdev .jewelry-view-all {
+    color: {{ section.settings.sage_green }};
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.2s;
+  }
+
+  .shopdev .jewelry-view-all:hover {
+    color: {{ section.settings.deep_green }};
+  }
+
+  /* Mobile filter toggle */
+  .shopdev .jewelry-mobile-filter-btn {
+    display: none;
+    background: {{ section.settings.deep_green }};
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    align-items: center;
+    gap: 8px;
+  }
+
+  @media (max-width: 1023px) {
+    .shopdev .jewelry-sidebar-desktop {
+      display: none;
+    }
+
+    .shopdev .jewelry-mobile-filter-btn {
+      display: inline-flex;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .shopdev .jewelry-product-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 12px !important;
+    }
+
+    .shopdev .jewelry-product-info {
+      padding: 12px;
+    }
+
+    .shopdev .jewelry-product-title {
+      font-size: 13px;
+    }
+
+    .shopdev .jewelry-price-sale {
+      font-size: 15px;
+    }
+
+    .shopdev .jewelry-price-compare {
+      font-size: 12px;
+    }
+
+    .shopdev .jewelry-add-cart-btn {
+      opacity: 1;
+      transform: translateY(0);
+      width: 36px;
+      height: 36px;
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .shopdev .jewelry-product-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  /* Explicit layout styles for sidebar + product grid */
+  .shopdev .jewelry-layout {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .shopdev .jewelry-sidebar-wrap {
+    width: 280px;
+    flex-shrink: 0;
+  }
+
+  .shopdev .jewelry-main-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .shopdev .jewelry-product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .shopdev .jewelry-section-container {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 48px 16px;
+  }
+
+  .shopdev .jewelry-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+  }
+
+  .shopdev .jewelry-section-heading {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .shopdev .jewelry-topbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .shopdev .jewelry-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .shopdev .jewelry-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .shopdev .jewelry-view-toggle {
+    display: flex;
+    gap: 8px;
+  }
+
+  .shopdev .jewelry-product-count {
+    font-size: 14px;
+    color: #6b7280;
+  }
+
+  @media (min-width: 768px) {
+    .shopdev .jewelry-section-heading {
+      font-size: 30px;
+    }
+
+    .shopdev .jewelry-section-container {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .shopdev .jewelry-layout {
+      display: block;
+    }
+
+    .shopdev .jewelry-sidebar-wrap {
+      display: none;
+    }
+
+    .shopdev .jewelry-product-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .shopdev .jewelry-product-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 12px !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .shopdev .jewelry-product-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
+
+{% assign products_to_show = section.settings.products_to_show %}
+{% assign show_sidebar = section.settings.show_sidebar %}
+
+{% comment %} Collect all products from all collection blocks {% endcomment %}
+{% assign all_products = '' %}
+{% assign total_product_count = 0 %}
+{% assign has_collections = false %}
+{% for block in section.blocks %}
+  {% if block.type == 'collection_block' and block.settings.collection != blank %}
+    {% assign has_collections = true %}
+    {% assign total_product_count = total_product_count | plus: block.settings.collection.products.size %}
+  {% endif %}
+{% endfor %}
+
+<div class="jewelry-section" style="width: 100%;">
+  <div class="jewelry-section-container">
+
+    <!-- Section Header -->
+    <div class="jewelry-section-header">
+      <h2 class="jewelry-section-heading" style="color: {{ section.settings.deep_green }};">
+        {% assign heading_words = section.settings.heading | split: ' ' %}
+        {% for word in heading_words %}
+          {% if forloop.last %}
+            <span class="jewelry-heading-highlight">{{ word }}</span>
+          {% else %}
+            {{ word }}
+          {% endif %}
+          {% unless forloop.last %} {% endunless %}
+        {% endfor %}
+      </h2>
+      <a href="{{ section.settings.view_all_link }}" class="jewelry-view-all">
+        View All <i class="ph ph-arrow-right"></i>
+      </a>
+    </div>
+
+    <div class="jewelry-layout">
+
+      <!-- Left Sidebar (Decorative Filters) -->
+      {% if show_sidebar %}
+        <div class="jewelry-sidebar-wrap jewelry-sidebar-desktop">
+          <div class="jewelry-filter-sidebar" style="padding: 20px; position: sticky; top: 16px;">
+
+            <!-- Categories Filter -->
+            <div style="margin-bottom: 24px;">
+              <div class="jewelry-filter-title">Categories</div>
+              <div style="display: flex; flex-direction: column; gap: 12px;">
+                {% assign categories = "Rings,Necklaces,Earrings,Bracelets,Bangles" | split: ',' %}
+                {% assign cat_counts = "124,89,156,67,43" | split: ',' %}
+                {% for cat in categories %}
+                  <label style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
+                    <input type="checkbox" class="jewelry-filter-checkbox" {% if forloop.first %}checked{% endif %}>
+                    <span class="jewelry-filter-label">
+                      {{ cat }}
+                      <span class="jewelry-filter-count">{{ cat_counts[forloop.index0] }}</span>
+                    </span>
+                  </label>
+                {% endfor %}
+              </div>
+            </div>
+
+            <!-- Price Range Filter -->
+            <div style="margin-bottom: 24px;">
+              <div class="jewelry-filter-title">Price Range</div>
+              <div class="jewelry-range-track">
+                <div class="jewelry-range-fill"></div>
+                <div class="jewelry-range-thumb jewelry-range-thumb-left"></div>
+                <div class="jewelry-range-thumb jewelry-range-thumb-right"></div>
+              </div>
+              <div style="display: flex; gap: 12px; margin-top: 12px;">
+                <div style="flex: 1;">
+                  <label style="font-size: 11px; color: #6b7280; margin-bottom: 4px; display: block;">Min Price</label>
+                  <input type="text" value="$50" class="jewelry-price-input" readonly>
+                </div>
+                <div style="flex: 1;">
+                  <label style="font-size: 11px; color: #6b7280; margin-bottom: 4px; display: block;">Max Price</label>
+                  <input type="text" value="$500" class="jewelry-price-input" readonly>
+                </div>
+              </div>
+            </div>
+
+            <!-- Color Filter -->
+            <div style="margin-bottom: 24px;">
+              <div class="jewelry-filter-title">Color</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                {% assign colors = "#FFD700,#C0C0C0,#B76E79,#1a1a1a,#FFFFFF,#8B4513" | split: ',' %}
+                {% assign color_names = "Gold,Silver,Rose Gold,Black,White,Bronze" | split: ',' %}
+                {% for color in colors %}
+                  <div class="jewelry-color-swatch {% if forloop.first %}active{% endif %}"
+                       style="background: {{ color }}; {% if color == '#FFFFFF' %}border: 2px solid #ddd;{% endif %}"
+                       title="{{ color_names[forloop.index0] }}"></div>
+                {% endfor %}
+              </div>
+            </div>
+
+            <!-- Rating Filter -->
+            <div style="margin-bottom: 24px;">
+              <div class="jewelry-filter-title">Rating</div>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                {% for i in (1..5) %}
+                  {% assign star_count = 6 | minus: i %}
+                  <div class="jewelry-star-filter">
+                    {% for s in (1..5) %}
+                      {% if s <= star_count %}
+                        <i class="ph-fill ph-star"></i>
+                      {% else %}
+                        <i class="ph-fill ph-star star-empty"></i>
+                      {% endif %}
+                    {% endfor %}
+                    <span class="jewelry-star-filter-count">& up</span>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+
+            <!-- Apply Button -->
+            <button class="jewelry-apply-btn">Apply Filters</button>
+          </div>
+        </div>
+      {% endif %}
+
+      <!-- Right Side Product Grid Area -->
+      <div class="jewelry-main-content">
+
+        <!-- Top Bar: Product count, Sort, View toggle -->
+        <div class="jewelry-topbar">
+          <div class="jewelry-topbar-left">
+            <button class="jewelry-mobile-filter-btn">
+              <i class="ph ph-funnel"></i> Filters
+            </button>
+            {% if has_collections %}
+              {% assign showing_end = products_to_show %}
+              {% if showing_end > total_product_count %}
+                {% assign showing_end = total_product_count %}
+              {% endif %}
+              <span class="jewelry-product-count">
+                Showing 1–{{ showing_end }} of {{ total_product_count }} products
+              </span>
+            {% else %}
+              <span class="jewelry-product-count">Showing products</span>
+            {% endif %}
+          </div>
+          <div class="jewelry-topbar-right">
+            <select class="jewelry-sort-select">
+              <option>Sort by: Featured</option>
+              <option>Price: Low to High</option>
+              <option>Price: High to Low</option>
+              <option>Newest First</option>
+              <option>Best Selling</option>
+            </select>
+            <div class="jewelry-view-toggle">
+              <div class="jewelry-view-icon active">
+                <i class="ph ph-squares-four" style="font-size: 18px;"></i>
+              </div>
+              <div class="jewelry-view-icon">
+                <i class="ph ph-list" style="font-size: 18px;"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Grid -->
+        {% comment %} <div class="jewelry-product-grid">
+          {% if has_collections %}
+            {% assign products_shown = 0 %}
+            {% for block in section.blocks %}
+              {% if block.type == 'collection_block' and block.settings.collection != blank %}
+                {% assign block_collection = block.settings.collection %}
+                {% for product in block_collection.products limit: products_to_show %}
+                  {% if products_shown >= products_to_show %}
+                    {% break %}
+                  {% endif %}
+              {% comment %} Calculate discount percentage for this product {% endcomment %}
+              {% assign has_discount = false %}
+              {% assign discount_percent = 0 %}
+              {% if product.compare_at_price > product.price %}
+                {% assign has_discount = true %}
+                {% assign price_diff = product.compare_at_price | minus: product.price %}
+                {% assign discount_percent = price_diff | times: 100 | divided_by: product.compare_at_price %}
+              {% endif %}
+
+              {% comment %} Assign badge types based on position {% endcomment %}
+              {% assign badge_type = 'discount' %}
+              {% assign badge_text = '' %}
+              {% if has_discount %}
+                {% assign badge_text = '-' | append: discount_percent | append: '%' %}
+                {% assign badge_type = 'discount' %}
+              {% else %}
+                {% assign mod = forloop.index | modulo: 3 %}
+                {% if mod == 0 %}
+                  {% assign badge_text = 'New' %}
+                  {% assign badge_type = 'new' %}
+                {% elsif mod == 1 %}
+                  {% assign badge_text = 'Hot' %}
+                  {% assign badge_type = 'new' %}
+                {% else %}
+                  {% assign badge_text = 'Trending' %}
+                  {% assign badge_type = 'discount' %}
+                {% endif %}
+              {% endif %}
+
+              {% comment %} Generate pseudo-random star rating per product {% endcomment %}
+              {% assign star_seed = forloop.index | modulo: 3 %}
+              {% if star_seed == 0 %}
+                {% assign stars = 5 %}
+                {% assign review_count = 128 %}
+              {% elsif star_seed == 1 %}
+                {% assign stars = 4 %}
+                {% assign review_count = 86 %}
+              {% else %}
+                {% assign stars = 5 %}
+                {% assign review_count = 214 %}
+              {% endif %}
+
+              <div class="jewelry-product-card" data-product-id="{{ product.id }}" {{ block.shopify_attributes }}>
+                <div class="jewelry-product-image-wrap">
+                  <!-- Product Image -->
+                  {% if product.featured_image != blank %}
+                    {{ product.featured_image | image_url: width: 600 | image_tag:
+                      loading: 'lazy',
+                      style: 'width: 100%; height: 100%; object-fit: cover;',
+                      sizes: '(max-width: 480px) 100vw, (max-width: 767px) 50vw, (max-width: 1023px) 50vw, 33vw',
+                      alt: product.title
+                    }}
+                  {% else %}
+                    {{ 'product-1' | placeholder_svg_tag: 'w-full h-full' }}
+                  {% endif %}
+
+                  <!-- Badge -->
+                  {% if badge_text != '' %}
+                    <span class="jewelry-badge {% if badge_type == 'discount' %}jewelry-badge-discount{% else %}jewelry-badge-new{% endif %}">
+                      {{ badge_text }}
+                    </span>
+                  {% endif %}
+
+                  <!-- Wishlist Heart -->
+                  <button class="jewelry-wishlist-btn" aria-label="Add to wishlist" onclick="toggleWishlist(this)">
+                    <i class="ph ph-heart heart-outline"></i>
+                    <i class="ph-fill ph-heart heart-filled"></i>
+                  </button>
+
+                  <!-- Add to Cart Button -->
+                  <form action="/cart/add" method="post">
+                    <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="jewelry-add-cart-btn" aria-label="Add to cart">
+                      <i class="ph ph-shopping-bag"></i>
+                    </button>
+                  </form>
+                </div>
+
+                <div class="jewelry-product-info">
+                  <!-- Product Type -->
+                  {% if product.type != blank %}
+                    <div class="jewelry-product-type">{{ product.type }}</div>
+                  {% else %}
+                    <div class="jewelry-product-type">Jewelry</div>
+                  {% endif %}
+
+                  <!-- Product Title -->
+                  <div class="jewelry-product-title">
+                    <a href="{{ product.url }}">{{ product.title }}</a>
+                  </div>
+
+                  <!-- Star Rating -->
+                  <div class="jewelry-stars">
+                    {% for s in (1..5) %}
+                      {% if s <= stars %}
+                        <i class="ph-fill ph-star"></i>
+                      {% else %}
+                        <i class="ph-fill ph-star star-empty"></i>
+                      {% endif %}
+                    {% endfor %}
+                    <span class="jewelry-review-count">({{ review_count }})</span>
+                  </div>
+
+                  <!-- Pricing -->
+                  <div class="jewelry-price-wrap">
+                    <span class="jewelry-price-sale">{{ product.price | money }}</span>
+                    {% if product.compare_at_price > product.price %}
+                      <span class="jewelry-price-compare">{{ product.compare_at_price | money }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+                  {% assign products_shown = products_shown | plus: 1 %}
+                {% endfor %}
+                {% if products_shown >= products_to_show %}
+                  {% break %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            <!-- Fallback when no collections are selected -->
+            {% for i in (1..6) %}
+              <div class="jewelry-product-card">
+                <div class="jewelry-product-image-wrap">
+                  {{ 'product-' | append: i | placeholder_svg_tag: 'w-full h-full' }}
+                  <span class="jewelry-badge jewelry-badge-discount">-30%</span>
+                  <button class="jewelry-wishlist-btn" aria-label="Add to wishlist" onclick="toggleWishlist(this)">
+                    <i class="ph ph-heart heart-outline"></i>
+                    <i class="ph-fill ph-heart heart-filled"></i>
+                  </button>
+                  <button class="jewelry-add-cart-btn" aria-label="Add to cart">
+                    <i class="ph ph-shopping-bag"></i>
+                  </button>
+                </div>
+                <div class="jewelry-product-info">
+                  <div class="jewelry-product-type">Jewelry</div>
+                  <div class="jewelry-product-title">Sample Product {{ i }}</div>
+                  <div class="jewelry-stars">
+                    <i class="ph-fill ph-star"></i>
+                    <i class="ph-fill ph-star"></i>
+                    <i class="ph-fill ph-star"></i>
+                    <i class="ph-fill ph-star"></i>
+                    <i class="ph-fill ph-star star-empty"></i>
+                    <span class="jewelry-review-count">(42)</span>
+                  </div>
+                  <div class="jewelry-price-wrap">
+                    <span class="jewelry-price-sale">$99.00</span>
+                    <span class="jewelry-price-compare">$149.00</span>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div> {% endcomment %}
+        <!-- Product Grid -->
+<div class="jewelry-product-grid">
+
+  {% assign products_to_show = section.settings.products_to_show %}
+  {% assign total_rendered = 0 %}
+
+  {% for block in section.blocks %}
+
+    {% if block.type == 'collection_block' and block.settings.collection != blank %}
+
+      {% assign collection = block.settings.collection %}
+
+      {% for product in collection.products %}
+
+        {% if total_rendered >= products_to_show %}
+          {% break %}
+        {% endif %}
+
+        {% assign total_rendered = total_rendered | plus: 1 %}
+
+        {%- comment -%} DISCOUNT LOGIC {%- endcomment -%}
+        {% assign has_discount = false %}
+        {% assign discount_percent = 0 %}
+
+        {% if product.compare_at_price > product.price %}
+          {% assign has_discount = true %}
+          {% assign price_diff = product.compare_at_price | minus: product.price %}
+          {% assign discount_percent = price_diff | times: 100 | divided_by: product.compare_at_price %}
+        {% endif %}
+
+        {%- comment -%} BADGE LOGIC {%- endcomment -%}
+        {% assign mod = total_rendered | modulo: 3 %}
+        {% assign badge_text = '' %}
+        {% assign badge_type = 'new' %}
+
+        {% if has_discount %}
+          {% assign badge_text = '-' | append: discount_percent | append: '%' %}
+          {% assign badge_type = 'discount' %}
+        {% else %}
+          {% if mod == 0 %}
+            {% assign badge_text = 'New' %}
+          {% elsif mod == 1 %}
+            {% assign badge_text = 'Hot' %}
+          {% else %}
+            {% assign badge_text = 'Trending' %}
+          {% endif %}
+        {% endif %}
+
+        {%- comment -%} RATING LOGIC {%- endcomment -%}
+        {% assign star_seed = total_rendered | modulo: 3 %}
+
+        {% if star_seed == 0 %}
+          {% assign stars = 5 %}
+          {% assign review_count = 128 %}
+        {% elsif star_seed == 1 %}
+          {% assign stars = 4 %}
+          {% assign review_count = 86 %}
+        {% else %}
+          {% assign stars = 5 %}
+          {% assign review_count = 214 %}
+        {% endif %}
+
+        <!-- PRODUCT CARD -->
+        <div class="jewelry-product-card">
+
+          <div class="jewelry-product-image-wrap">
+
+            {% if product.featured_image %}
+              {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag }}
+            {% endif %}
+
+            {% if badge_text != blank %}
+              <span class="jewelry-badge {% if badge_type == 'discount' %}jewelry-badge-discount{% else %}jewelry-badge-new{% endif %}">
+                {{ badge_text }}
+              </span>
+            {% endif %}
+
+            <button class="jewelry-wishlist-btn" onclick="toggleWishlist(this)">
+              <i class="ph ph-heart heart-outline"></i>
+              <i class="ph-fill ph-heart heart-filled"></i>
+            </button>
+
+            <form action="/cart/add" method="post">
+              <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+              <button type="submit" class="jewelry-add-cart-btn">
+                <i class="ph ph-shopping-bag"></i>
+              </button>
+            </form>
+
+          </div>
+
+          <div class="jewelry-product-info">
+
+            <div class="jewelry-product-type">
+              {{ product.type | default: "Jewelry" }}
+            </div>
+
+            <div class="jewelry-product-title">
+              <a href="{{ product.url }}">{{ product.title }}</a>
+            </div>
+
+            <div class="jewelry-stars">
+              {% for i in (1..5) %}
+                {% if i <= stars %}
+                  <i class="ph-fill ph-star"></i>
+                {% else %}
+                  <i class="ph-fill ph-star star-empty"></i>
+                {% endif %}
+              {% endfor %}
+              <span class="jewelry-review-count">({{ review_count }})</span>
+            </div>
+
+            <div class="jewelry-price-wrap">
+              <span class="jewelry-price-sale">{{ product.price | money }}</span>
+
+              {% if product.compare_at_price > product.price %}
+                <span class="jewelry-price-compare">{{ product.compare_at_price | money }}</span>
+              {% endif %}
+            </div>
+
+          </div>
+
+        </div>
+
+      {% endfor %}
+    {% endif %}
+
+  {% endfor %}
+
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* Wishlist heart toggle */
+  function toggleWishlist(btn) {
+    btn.classList.toggle('active');
+  }
+
+  /* Color swatch toggle */
+  document.addEventListener('DOMContentLoaded', function() {
+    var swatches = document.querySelectorAll('.shopdev .jewelry-color-swatch');
+    swatches.forEach(function(swatch) {
+      swatch.addEventListener('click', function() {
+        swatches.forEach(function(s) { s.classList.remove('active'); });
+        swatch.classList.add('active');
+      });
+    });
+
+    /* View toggle */
+    var viewIcons = document.querySelectorAll('.shopdev .jewelry-view-icon');
+    viewIcons.forEach(function(icon) {
+      icon.addEventListener('click', function() {
+        viewIcons.forEach(function(v) { v.classList.remove('active'); });
+        icon.classList.add('active');
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Jewelry Product Grid",
+  "class": "shopdev",
+  "tag": "section",
+  "max_blocks": 15,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "All Products"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 3,
+      "max": 24,
+      "step": 3,
+      "label": "Total number of products to show",
+      "default": 9
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sidebar",
+      "label": "Show filter sidebar",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Brand Colors"
+    },
+    {
+      "type": "color",
+      "id": "deep_green",
+      "label": "Deep Green (Primary)",
+      "default": "#013A2D"
+    },
+    {
+      "type": "color",
+      "id": "sage_green",
+      "label": "Sage Green (Accent)",
+      "default": "#85966B"
+    },
+    {
+      "type": "color",
+      "id": "beige_color",
+      "label": "Warm Beige (Background)",
+      "default": "#E5DBC7"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background",
+      "default": "#FAF8F4"
+    },
+   
+  ],
+  "blocks": [
+    {
+      "type": "collection_block",
+      "name": "Collection",
+      
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+ "presets": [
+  {
+    "name": "Jewelry Product Grid",
+    "settings": {
+      "heading": "All Products",
+      "products_to_show": 9,
+      "view_all_link": "/collections/all",
+      "show_sidebar": true,
+      "deep_green": "#013A2D",
+      "sage_green": "#85966B",
+      "beige_color": "#E5DBC7",
+      "bg_color": "#FAF8F4"
+    },
+    "blocks": [
+      {
+        "type": "collection_block"
+      }
+    ]
+  }
+]
+}
+{% endschema %}

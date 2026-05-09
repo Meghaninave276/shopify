@@ -1,0 +1,234 @@
+{% comment %}
+  Dynamic Jewelry Collection Navigation
+  File: sections/jewelry-collections.liquid
+{% endcomment %}
+
+<style>
+  .jewelry-collections-wrapper {
+    width: 100%;
+    padding: 35px 20px;
+    background: #f8f8f8;
+    border-top: 3px solid #0D3A2D;
+    border-bottom: 3px solid #0D3A2D;
+  }
+
+  .jewelry-collections {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+ .jewelry-item {
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease;
+  animation: fadeUp 0.6s ease forwards;
+}
+
+  .jewelry-icon-box {
+  width: 120px;
+  height: 120px;
+  border-radius: 24px;
+  background: #E5DBC7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  border: 2px solid transparent;
+  transition: all 0.35s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.jewelry-item:hover .jewelry-icon-box {
+  background: #85966B;
+  border-color: #0D3A2D;
+  transform: translateY(-8px) scale(1.06);
+  box-shadow: 0 12px 24px rgba(13, 58, 45, 0.18);
+}
+
+  .jewelry-icon-box img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+}
+.jewelry-item:hover .jewelry-icon-box img {
+  transform: scale(1.12) rotate(5deg);
+}
+  .jewelry-emoji {
+    font-size: 34px;
+  }
+
+  .jewelry-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #0D3A2D;
+  transition: all 0.3s ease;
+}
+
+.jewelry-item:hover .jewelry-title {
+  color: #85966B;
+  letter-spacing: 0.5px;
+}
+
+  @media screen and (max-width: 768px) {
+    .jewelry-collections {
+      gap: 18px;
+    }
+
+    .jewelry-icon-box {
+      width: 95px;
+  height: 95px;
+      border-radius: 18px;
+    }
+
+    .jewelry-icon-box img {
+       width: 55px;
+  height: 55px;
+    }
+
+    .jewelry-emoji {
+      font-size: 26px;
+    }
+
+    .jewelry-title {
+      font-size: 13px;
+    }
+  }
+  .jewelry-icon-box::before {
+  content: "";
+  position: absolute;
+  top: -120%;
+  left: -120%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255,255,255,0.18);
+  transform: rotate(25deg);
+  transition: 0.6s;
+}
+
+.jewelry-item:hover .jewelry-icon-box::before {
+  top: 100%;
+  left: 100%;
+}
+  @keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+</style>
+
+<div class="jewelry-collections-wrapper">
+  <div class="jewelry-collections">
+
+    {% for block in section.blocks %}
+
+      <a href="{{ block.settings.collection.url }}" class="jewelry-item">
+
+        <div class="jewelry-icon-box">
+
+          {% if block.settings.icon_image != blank %}
+            <img
+              src="{{ block.settings.icon_image | image_url: width: 300 }}"
+              alt="{{ block.settings.title }}"
+              loading="lazy"
+            >
+          {% else %}
+            <span class="jewelry-emoji">
+              {{ block.settings.emoji }}
+            </span>
+          {% endif %}
+
+        </div>
+
+        <div class="jewelry-title">
+          {{ block.settings.title }}
+        </div>
+
+      </a>
+
+    {% endfor %}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Jewelry Collections",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "collection_item",
+      "name": "Collection Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Collection Title",
+          "default": "Rings"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Select Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon Image"
+        },
+        {
+          "type": "text",
+          "id": "emoji",
+          "label": "Emoji Icon (if no image)",
+          "default": "💍"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Jewelry Collections",
+      "blocks": [
+        {
+          "type": "collection_item",
+          "settings": {
+            "title": "Rings",
+            "emoji": "💍"
+          }
+        },
+        {
+          "type": "collection_item",
+          "settings": {
+            "title": "Earrings",
+            "emoji": "✨"
+          }
+        },
+        {
+          "type": "collection_item",
+          "settings": {
+            "title": "Necklace",
+            "emoji": "📿"
+          }
+        },
+        {
+          "type": "collection_item",
+          "settings": {
+            "title": "Bracelet",
+            "emoji": "🪄"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
